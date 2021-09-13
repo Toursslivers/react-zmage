@@ -158,10 +158,10 @@ export default class App extends React.Component {
                             src="imgSet/childsDream/5.jpg"
                             alt="使用键盘进行快捷操作"
                             set={[{
-                                src: "imgSet/childsDream/5.jpg",
+                                src: "https://img.shuocdn.com/client/image/12/84137035175497777cb066bbac6b03ef.file?x-oss-process=style/raw_image",
                                 alt: "童夢 · SIX"
                             },{
-                                src: "imgSet/childsDream/6.jpg",
+                                src: "https://img.shuocdn.com/client/image/12/6095dc4996d99e71dc5e64087128755c.file?x-oss-process=style/raw_image",
                                 alt: "童夢 · SEVEN"
                             }]}
                             onBrowsing={state => {

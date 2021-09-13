@@ -184,10 +184,11 @@ export default class Browser extends React.PureComponent {
                         page: targetPage,
                         pageIsCover: pageIsCover(coverRef, set, targetPage),
                         pageWithStep: pageWithStep + step,
-                        zoom: false,
+                        zoom: true,
                         rotate: 0,
                     }, () => {
                         typeof onSwitching === "function" && onSwitching(targetPage)
+                        this.handleToggleZoom()
                     })
                 }
             }

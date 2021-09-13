@@ -97,7 +97,7 @@ module.exports =
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"backgroundLayer":"backgroundLayer__3kiCJ"};
+module.exports = {"backgroundLayer":"backgroundLayer__36t43"};
 
 /***/ }),
 
@@ -111,7 +111,7 @@ module.exports = {"backgroundLayer":"backgroundLayer__3kiCJ"};
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"wrapperLayer":"wrapperLayer__3hggD"};
+module.exports = {"wrapperLayer":"wrapperLayer__z_PKn"};
 
 /***/ }),
 
@@ -125,7 +125,7 @@ module.exports = {"wrapperLayer":"wrapperLayer__3hggD"};
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"baseButton":"baseButton__1l-8C","controls":"controls__3sQmL","show":"show__3wuNU","pinButton":"pinButton__3L7CE","rotate":"rotate__3dU4j","rotateLeft":"rotateLeft__jf-FB","rotateRight":"rotateRight__2DM1Q","download":"download__JLwN1","zoom":"zoom__HH1gO","close":"close__1Yy0b","sideButton":"sideButton__3kbDa","flipLeft":"flipLeft__2HlVL","flipRight":"flipRight__3GreD","pages":"pages__3_44_","mobile":"mobile__3kn09","dot":"dot__gnENp","blackDot":"blackDot__1Nm3_","whiteDot":"whiteDot__3MHk8"};
+module.exports = {"baseButton":"baseButton__2AV5J","controls":"controls__NTVNu","show":"show__2Pu4e","pinButton":"pinButton__pLhHH","rotate":"rotate__18SVA","rotateLeft":"rotateLeft__1y4kO","rotateRight":"rotateRight__1GeTD","download":"download__TnaVI","zoom":"zoom__1W2_u","close":"close__h79Tx","sideButton":"sideButton__25vo1","flipLeft":"flipLeft__fhip_","flipRight":"flipRight__2T92B","pages":"pages__2jlej","mobile":"mobile__3HB5p","dot":"dot__p50eg","blackDot":"blackDot__TTF7k","whiteDot":"whiteDot__3iAb5"};
 
 /***/ }),
 
@@ -139,7 +139,7 @@ module.exports = {"baseButton":"baseButton__1l-8C","controls":"controls__3sQmL",
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"imageLayer":"imageLayer__33OvN","zooming":"zooming__8A3Sl","invalidate":"invalidate__GRvMe"};
+module.exports = {"imageLayer":"imageLayer__1NyU2","zooming":"zooming__3TFmo","invalidate":"invalidate__1wygJ"};
 
 /***/ }),
 
@@ -153,7 +153,7 @@ module.exports = {"imageLayer":"imageLayer__33OvN","zooming":"zooming__8A3Sl","i
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
-module.exports = {"loadingContainer":"loadingContainer__nzXM4","show":"show__1BtTD","reload":"reload__2nJBf","loading":"loading__2iAZJ","spin":"spin__1tumn","fadeIn":"fadeIn__1iF9b","fadeOut":"fadeOut__11bTR"};
+module.exports = {"loadingContainer":"loadingContainer__33QBo","show":"show__1Bu8R","reload":"reload__3KDuO","loading":"loading__3UcNS","spin":"spin__2VDbe","fadeIn":"fadeIn__3TpcC","fadeOut":"fadeOut__9PHOR"};
 
 /***/ }),
 
@@ -2754,10 +2754,12 @@ function (_React$PureComponent) {
               page: targetPage,
               pageIsCover: Browser_utils_pageIsCover(coverRef, set, targetPage),
               pageWithStep: pageWithStep + step,
-              zoom: false,
+              zoom: true,
               rotate: 0
             }, function () {
               typeof onSwitching === "function" && onSwitching(targetPage);
+
+              _this.handleToggleZoom();
             });
           }
         }
