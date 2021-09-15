@@ -163,6 +163,9 @@ export default class App extends React.Component {
                             },{
                                 src: "https://img.shuocdn.com/client/image/12/6095dc4996d99e71dc5e64087128755c.file?x-oss-process=style/raw_image",
                                 alt: "童夢 · SEVEN"
+                            },{
+                                src:'https://img.shuocdn.com/client/image/188/4701d4c6918cb451226fd3e7445baea1.jpg?x-oss-process=style/raw_image',
+                                alt:'123'
                             }]}
                             onBrowsing={state => {
                                 console.info("Browsing State: ", state)

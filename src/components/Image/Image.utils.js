@@ -106,7 +106,7 @@ export const getBrowsingStyle = (props, context, imageRef) => {
 }
 
 /* 获取缩放样式 */
-export const getZoomingStyle = (props, context, imageRef, { clientX:mouseX=getScrollWidth()/2, clientY:mouseY=getInnerHeight()/2 }={}) => {
+export const getZoomingStyle = (props, context, imageRef, { clientX:mouseX=getScrollWidth()/2, clientY:mouseY=0}={}) => {
     const { radius, edge, rotate } = context
     const { naturalWidth, naturalHeight } = imageRef.current
     // 随鼠标位移偏移量

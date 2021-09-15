@@ -66,7 +66,7 @@ export default class Image extends React.PureComponent {
         const { show: currShow, zoom: currZoom, rotate: currRotate, page: currPage } = this.props
         const { presetIsMobile } = this.context
         // 状态改变时更新样式 (Page 导致的 src 变化的 update 交给图片自身的 onload 调用)
-        if (prevShow!==currShow || prevZoom!==currZoom || prevRotate!==currRotate) {
+        if (prevShow !== currShow || prevZoom !== currZoom || prevRotate !== currRotate) {
             // 显示状态切换
             if (!prevShow) {
                 // 显示
@@ -78,10 +78,10 @@ export default class Image extends React.PureComponent {
                 this.updateCurrentImageStyle()
             }
             // 更新监听状态
-            this.updateZoomEventListenerWithState()
+            // this.updateZoomEventListenerWithState()
         }
         // 切换页面时
-        if (prevPage!==currPage) {
+        if (prevPage !== currPage) {
             // 显示加载
             this.handleImageLoadStart()
         }
@@ -97,23 +97,23 @@ export default class Image extends React.PureComponent {
             window.removeEventListener('scroll', this.handleScroll)
         }
         window.removeEventListener('resize', this.handleResize)
-        window.removeEventListener('mousemove', this.handleMouseMove)
+        // window.removeEventListener('mousemove', this.handleMouseMove)
         clearInterval(this.imageLoadingTimer)
     }
 
     /**
      * 事件监听
      **/
-    updateZoomEventListenerWithState = () => {
-        const { show, zoom } = this.context
-        if (show && zoom && !this.listeningMouseMove) {
-            window.addEventListener('mousemove', this.handleMouseMove)
-            this.listeningMouseMove = true
-        } else {
-            window.removeEventListener('mousemove', this.handleMouseMove)
-            this.listeningMouseMove = false
-        }
-    }
+    // updateZoomEventListenerWithState = () => {
+    //     const { show, zoom } = this.context
+    //     if (show && zoom && !this.listeningMouseMove) {
+    //         window.addEventListener('mousemove', this.handleMouseMove)
+    //         this.listeningMouseMove = true
+    //     } else {
+    //         window.removeEventListener('mousemove', this.handleMouseMove)
+    //         this.listeningMouseMove = false
+    //     }
+    // }
 
     /**
      * 信息更新
@@ -134,7 +134,7 @@ export default class Image extends React.PureComponent {
     handleScroll = () => {
         if (this.imageRef.current) {
             const { show } = this.context
-            this.imageRef.current.style.top = `calc(50% + ${show ? 0 : this.initialPageOffset-window.pageYOffset}px)`
+            this.imageRef.current.style.top = `calc(50% + ${show ? 0 : this.initialPageOffset - window.pageYOffset}px)`
         }
     }
     handleClick = () => {
@@ -144,22 +144,23 @@ export default class Image extends React.PureComponent {
     // 触摸事件
     handleTouchStart = (e) => {
         const { clientX, clientY } = e.touches[0]
-        this.setTouchProfile(new touchProfile({ origin:{ x:clientX, y:clientY } }))
+        this.setTouchProfile(new touchProfile({ origin: { x: clientX, y: clientY } }))
     }
     handleTouchMove = (e) => {
         const { touchProfile } = this.state
         const { clientX, clientY } = e.touches[0]
-        this.setTouchProfile(touchProfile.update({ origin:{ x:clientX, y:clientY }}))
+        this.setTouchProfile(touchProfile.update({ origin: { x: clientX, y: clientY } }))
     }
     handleTouchEnd = (e) => {
         const { touchProfile } = this.state
         this.setTouchProfile(touchProfile.end())
     }
     // 鼠标事件
-    handleMouseMove = (e) => {
-        const zoomingStyle = getZoomingStyle(this.props, this.context, this.imageRef, e)
-        this.setCurrentStyle(zoomingStyle)
-    }
+    // handleMouseMove = (e) => {
+    //     console.log('e',e)
+    //     const zoomingStyle = getZoomingStyle(this.props, this.context, this.imageRef, e)
+    //     this.setCurrentStyle(zoomingStyle)
+    // }
     // 加载事件
     handleImageLoadStart = () => {
         this.setState({
@@ -171,11 +172,11 @@ export default class Image extends React.PureComponent {
         clearInterval(this.imageLoadingTimer)
         this.imageLoadingTimer = checkImageLoadedComplete(this.imageRef.current, this.handleImageLoadEnd)
     }
-    handleImageLoadEnd = ({ invalidate }={}) => {
+    handleImageLoadEnd = ({ invalidate } = {}) => {
         clearInterval(this.imageLoadingTimer)
         this.setState({
             isFetching: false,
-            invalidate: invalidate===undefined ? this.state.invalidate : invalidate,
+            invalidate: invalidate === undefined ? this.state.invalidate : invalidate,
         })
     }
     handleImageLoad = () => {
@@ -225,7 +226,7 @@ export default class Image extends React.PureComponent {
     setTouchProfile = (nextProfile) => {
         if (nextProfile) {
             this.setState({
-                touchProfile: {...nextProfile}
+                touchProfile: { ...nextProfile }
             }, () => {
                 const { outBrowsing, toPrevPage, toNextPage } = this.context
                 const { touchProfile } = this.state
@@ -247,19 +248,19 @@ export default class Image extends React.PureComponent {
         // 获取动画配置
         let { offset, overflow, opacity } = animateConfig
         // 获取触摸配置
-        let { touch, transition } = getTouchConfig(touchProfile, { enableSwiping:set.length>1, enableLiving:true })
+        let { touch, transition } = getTouchConfig(touchProfile, { enableSwiping: set.length > 1, enableLiving: true })
         // 计算样式
         if (isSideImage) {
             // 仅对左右两张图做滑动跟踪
-            const x = distance===1 ? currentStyle.x+touch.x+offset*step : currentStyle.x+offset*step
+            const x = distance === 1 ? currentStyle.x + touch.x + offset * step : currentStyle.x + offset * step
             const y = currentStyle.y
-            transform = `translate3d(-50%, -50%, 0) translate3d(${x}px, ${y}px, 0px) scale3d(${currentStyle.scale+overflow}, ${currentStyle.scale+overflow}, 1) rotate3d(0, 0, 1, 0deg)`
-            zIndex = 10*distance
+            transform = `translate3d(-50%, ${zoom ? "-50%" : '-50%'}, 0) translate3d(${x}px, ${y}px, 0px) scale3d(${currentStyle.scale + overflow}, ${currentStyle.scale + overflow}, 1) rotate3d(0, 0, 1, 0deg)`
+            zIndex = 10 * distance
             pointerEvents = 'none'
         } else {
             const x = currentStyle.x + touch.x
             const y = currentStyle.y + touch.y
-            transform = `translate3d(-50%, -50%, 0) translate3d(${x}px, ${y}px, 0px) scale3d(${currentStyle.scale}, ${currentStyle.scale}, 1) rotate3d(0, 0, 1, ${currentStyle.rotate}deg)`
+            transform = `translate3d(-50%, ${zoom ? "-50%" : '-50%'}, 0) translate3d(${x}px, ${y}px, 0px) scale3d(${currentStyle.scale}, ${currentStyle.scale}, 1) rotate3d(0, 0, 1, ${currentStyle.rotate}deg)`
             // clipPath = currentStyle.radius ? `inset(0% 0% 0% 0% round ${currentStyle.radius/currentStyle.scale}px)` : `inset(0% 0% 0% 0% round 0)`
             opacity = currentStyle.opacity
             zIndex = 10
@@ -291,15 +292,15 @@ export default class Image extends React.PureComponent {
                 return acc
             }, [])
         } else {
-            return this.buildImage({ step:0, imageIndex:page })
+            return this.buildImage({ step: 0, imageIndex: page })
         }
     }
-    buildImage = ({ step, imageIndex }={}) => {
+    buildImage = ({ step, imageIndex } = {}) => {
         const { set, show, zoom, page, pageWithStep } = this.context
         const { invalidate } = this.state
         // 是否邊圖
         const distance = Math.abs(step)
-        const isSideImage = distance>0
+        const isSideImage = distance > 0
         // 计算真实索引
         const imageIndexWithStep = pageWithStep + step
         // 計算樣式
@@ -327,9 +328,9 @@ export default class Image extends React.PureComponent {
         // 構建内容
         if (isSideImage) {
             const sideImageShow = show && !zoom
-            return sideImageShow && <img {...commonProps}/>
+            return sideImageShow && <img {...commonProps} />
         } else {
-            return <img {...commonProps} {...centerProps}/>
+            return <img {...commonProps} {...centerProps} />
         }
     }
 
@@ -349,7 +350,7 @@ export default class Image extends React.PureComponent {
                 />
 
                 {/*图片*/}
-                { this.buildImageSeries(2) }
+                {this.buildImageSeries(2)}
 
             </Fragment>
         )

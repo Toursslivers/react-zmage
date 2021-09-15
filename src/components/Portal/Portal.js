@@ -13,16 +13,24 @@ import { defProp, defType } from "@/config/default"
 export default class Portals extends React.PureComponent {
     constructor(props) {
         super(props);
-
         // Init Env
         this.target = props.target || document.body
         this.container = document.createElement('figure')
         this.container.id = props.id
         this.container.className = props.className
         this.container.style.zIndex = props.zIndex
+        this.container.style.overflow = props.zoom ? 'scroll' : 'hidden'
+        this.container.style.background = '#ffffff'
         this.target.appendChild(this.container)
     }
+    componentDidUpdate(prevProps) {
+        const { zoom: prevZoom } = prevProps
+        const { zoom: currZoom } = this.props
+        if (prevZoom !== currZoom) {
+            this.container.style.overflow = currZoom ? 'scroll' : 'hidden'
+        }
 
+    }
     componentWillUnmount() {
         this.target.removeChild(this.container)
     }
@@ -42,4 +50,5 @@ Portals.propTypes = {
     id: PropTypes.string,
     className: PropTypes.string,
     zIndex: defType.zIndex,
+    zoom: PropTypes.bool,
 }
